@@ -87,7 +87,7 @@ public class StackTraceParser {
                             "\tParsed StackTraceElement:\t" + "\tat " + element.toString());
                 }
 
-                stackTrace.stackLines.add(element);
+                stackTrace.stackTraceLines.add(element);
             }
         }
 

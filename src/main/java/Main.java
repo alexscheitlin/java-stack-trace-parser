@@ -9,15 +9,8 @@ public class Main {
 
         try {
             StackTrace stackTrace = StackTraceParser.parse(stackTraceString);
-            String firstLine = stackTrace.firstLine;
-            List<StackTraceElement> stackLines = stackTrace.stackLines;
 
-            System.out.println("First Line: " + firstLine);
-            System.out.println("Trace:");
-
-            for (StackTraceElement line : stackLines) {
-                System.out.println(line.toString());
-            }
+            System.out.println(stackTrace.getOriginalStackTrace());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
