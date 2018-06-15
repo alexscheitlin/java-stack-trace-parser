@@ -6,13 +6,13 @@ public class Main {
 
         StackTrace stackTrace = StackTraceParser.parse(stackTraceString);
         String firstLine = stackTrace.firstLine;
-        List<StackTraceLine> stackLines = stackTrace.stackLines;
+        List<StackTraceElement> stackLines = stackTrace.stackLines;
 
         System.out.println("First Line: " + firstLine);
         System.out.println("Trace:");
 
-        for (StackTraceLine line : stackLines) {
-            System.out.println(line.getOriginalLine());
+        for (StackTraceElement line : stackLines) {
+            System.out.println(line.toString());
         }
     }
 

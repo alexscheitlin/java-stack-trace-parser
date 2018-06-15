@@ -25,26 +25,41 @@ public class StackTraceParser {
 
         for (int i = 1; i < lines.length; i++) {
             Matcher matcher = STACK_LINE_PATTERN.matcher(lines[i]);
-            StackTraceLine stackTraceLine = new StackTraceLine();
-            if (matcher.matches()) {
-                stackTraceLine.packageName = matcher.group(1);
-                stackTraceLine.className = matcher.group(2);
-                stackTraceLine.methodName = matcher.group(3);
 
-                if (matcher.group(4) != null && matcher.group(4) != null) {
-                    stackTraceLine.fileName = matcher.group(4);
-                    stackTraceLine.lineNumber = matcher.group(5);
-                } else if (matcher.group(6) != null) {
-                    stackTraceLine.information = matcher.group(6);
+            if (matcher.matches()) {
+                String packageName = matcher.group(1);
+                String className = matcher.group(2);
+                String methodName = matcher.group(3);
+
+                String fileName = null;
+                if (matcher.group(4) != null) {
+                    fileName = matcher.group(4);
                 }
 
-                if (!stackTraceLine.getOriginalLine().equals(lines[i])) {
+                int lineNumber = -1;
+                if (matcher.group(5) != null) {
+                    lineNumber = Integer.valueOf(matcher.group(5));
+                }
+
+                if (matcher.group(6) != null && matcher.group(6).equals("Native Method")) {
+                    lineNumber = -2;
+
+                }
+
+                StackTraceElement element = new StackTraceElement(
+                        packageName + "." + className,
+                        methodName,
+                        fileName,
+                        lineNumber
+                );
+
+                if (!("\tat " + element.toString()).equals(lines[i])) {
                     System.out.println("Error:");
                     System.out.println("Original:\t" + lines[i]);
-                    System.out.println("Parsed:\t\t" + stackTraceLine.getOriginalLine());
+                    System.out.println("Parsed:\t\t" + element.toString());
                 }
 
-                stackTrace.stackLines.add(stackTraceLine);
+                stackTrace.stackLines.add(element);
             }
         }
 

@@ -3,9 +3,9 @@ import java.util.List;
 
 public class StackTrace {
     public String firstLine;
-    public List<StackTraceLine> stackLines;
+    public List<StackTraceElement> stackLines;
 
     public StackTrace() {
-        this.stackLines = new ArrayList<StackTraceLine>();
+        this.stackLines = new ArrayList<StackTraceElement>();
     }
 }
