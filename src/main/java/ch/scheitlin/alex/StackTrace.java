@@ -1,3 +1,5 @@
+package ch.scheitlin.alex;
+
 import java.util.ArrayList;
 import java.util.List;
 

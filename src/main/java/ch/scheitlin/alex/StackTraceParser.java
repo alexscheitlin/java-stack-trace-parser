@@ -1,3 +1,5 @@
+package ch.scheitlin.alex;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +32,7 @@ public class StackTraceParser {
                 if (matcher.group(4) != null) {
                     fileName = matcher.group(4);
                 }
-                
+
                 int lineNumber = -1;
                 if (matcher.group(5) != null) {
                     lineNumber = Integer.valueOf(matcher.group(5));
