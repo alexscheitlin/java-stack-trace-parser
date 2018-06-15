@@ -1,7 +1,19 @@
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         String stackTraceString = getDummyStackTrace();
-        System.out.println(stackTraceString);
+
+        StackTrace stackTrace = StackTraceParser.parse(stackTraceString);
+        String firstLine = stackTrace.firstLine;
+        List<String> stackLines = stackTrace.stackLines;
+
+        System.out.println("First Line: " + firstLine);
+        System.out.println("Trace:");
+
+        for (String line : stackLines) {
+            System.out.println(line);
+        }
     }
 
     private static String getDummyStackTrace() {
