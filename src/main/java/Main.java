@@ -1,8 +1,6 @@
 import ch.scheitlin.alex.StackTrace;
 import ch.scheitlin.alex.StackTraceParser;
 
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         String stackTraceString = getDummyStackTrace();
@@ -11,6 +9,17 @@ public class Main {
             StackTrace stackTrace = StackTraceParser.parse(stackTraceString);
 
             System.out.println(stackTrace.getOriginalStackTrace());
+
+            String firstLine = stackTrace.firstLine;
+            StackTraceElement stackLine = stackTrace.stackTraceLines.get(0);
+
+            System.out.println("First line:\t" + firstLine);
+            System.out.println("Stack Line:\t" + stackLine.toString());
+            System.out.println("\t\tDeclaring class:\t" + stackLine.getClassName());
+            System.out.println("\t\tMethod name:\t\t" + stackLine.getMethodName());
+            System.out.println("\t\tFile name:\t\t\t" + stackLine.getFileName());
+            System.out.println("\t\tLine number:\t\t" + stackLine.getLineNumber());
+            System.out.println("\t\tIs Native Method:\t" + stackLine.isNativeMethod());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
