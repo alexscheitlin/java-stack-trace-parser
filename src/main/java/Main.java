@@ -1,6 +1,8 @@
 import ch.scheitlin.alex.StackTrace;
 import ch.scheitlin.alex.StackTraceParser;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         String stackTraceString = getDummyStackTrace();
@@ -8,11 +10,14 @@ public class Main {
         try {
             StackTrace stackTrace = StackTraceParser.parse(stackTraceString);
 
+            // print reconstructed original stack trace after parsing
             System.out.println(stackTrace.getOriginalStackTrace());
 
+            // print first line of stack trace and detailed information about some stack trace line
             String firstLine = stackTrace.firstLine;
             StackTraceElement stackLine = stackTrace.stackTraceLines.get(0);
 
+            System.out.println();
             System.out.println("First line:\t" + firstLine);
             System.out.println("Stack Line:\t" + stackLine.toString());
             System.out.println("\t\tDeclaring class:\t" + stackLine.getClassName());
@@ -20,6 +25,14 @@ public class Main {
             System.out.println("\t\tFile name:\t\t\t" + stackLine.getFileName());
             System.out.println("\t\tLine number:\t\t" + stackLine.getLineNumber());
             System.out.println("\t\tIs Native Method:\t" + stackLine.isNativeMethod());
+
+            // print stack trace lines of a specific package
+            String packageName = "com.example.bank.BankAccountTest";
+            List<StackTraceElement> linesOfPackage = stackTrace.getLinesOfPackage(packageName);
+            System.out.println();
+            for (StackTraceElement line : linesOfPackage) {
+                System.out.println(line.toString());
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
