@@ -1,4 +1,4 @@
-package ch.scheitlin.alex;
+package ch.scheitlin.alex.java;
 
 import java.util.ArrayList;
 import java.util.List;

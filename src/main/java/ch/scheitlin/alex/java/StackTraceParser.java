@@ -1,4 +1,4 @@
-package ch.scheitlin.alex;
+package ch.scheitlin.alex.java;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

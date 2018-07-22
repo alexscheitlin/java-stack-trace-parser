@@ -1,4 +1,4 @@
-package ch.scheitlin.alex;
+package ch.scheitlin.alex.java;
 
 import org.junit.Test;
 

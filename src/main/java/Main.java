@@ -1,5 +1,5 @@
-import ch.scheitlin.alex.StackTrace;
-import ch.scheitlin.alex.StackTraceParser;
+import ch.scheitlin.alex.java.StackTrace;
+import ch.scheitlin.alex.java.StackTraceParser;
 
 import java.util.List;
 
