@@ -28,7 +28,7 @@
 	<dependency>
 	    <groupId>com.github.alexscheitlin</groupId>
 	    <artifactId>java-stack-trace-parser</artifactId>
-	    <version>v1.0.0</version>
+	    <version>v1.0.1</version>
 	</dependency>
 ```
 
@@ -45,7 +45,7 @@
 - Add the dependency:
 ```
 	dependencies {
-	        implementation 'com.github.alexscheitlin:java-stack-trace-parser:v1.0.0'
+	        implementation 'com.github.alexscheitlin:java-stack-trace-parser:v1.0.1'
 	}
 ```
 
