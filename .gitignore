@@ -1,6 +1,6 @@
-# directories
-target/*
-
-# IDE's
-.idea/*
+# intellij idea
+.idea/
 *.iml
+
+# maven
+target/
