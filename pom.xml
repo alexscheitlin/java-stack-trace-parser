@@ -6,7 +6,7 @@
 
     <groupId>ch.scheitlin.alex.java</groupId>
     <artifactId>java-stack-trace-parser</artifactId>
-    <version>SNAPSHOT</version>
+    <version>1.0.0</version>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
