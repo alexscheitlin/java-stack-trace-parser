@@ -27,9 +27,6 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        // print reconstructed original stack trace after parsing
-        System.out.println(stackTrace.getOriginalStackTrace());
-
         // print first line of stack trace
         String firstLine = stackTrace.getFirstLine();
 
@@ -38,11 +35,11 @@ public class Main {
         System.out.println();
         System.out.println("First line:\t" + firstLine);
         System.out.println("Stack Line:\t" + stackLine.toString());
-        System.out.println("\t\tDeclaring class:\t" + stackLine.getClassName());
-        System.out.println("\t\tMethod name:\t\t" + stackLine.getMethodName());
-        System.out.println("\t\tFile name:\t\t\t" + stackLine.getFileName());
-        System.out.println("\t\tLine number:\t\t" + stackLine.getLineNumber());
-        System.out.println("\t\tIs Native Method:\t" + stackLine.isNativeMethod());
+        System.out.println("\tDeclaring class:\t" + stackLine.getClassName());
+        System.out.println("\tMethod name:\t\t" + stackLine.getMethodName());
+        System.out.println("\tFile name:\t\t\t" + stackLine.getFileName());
+        System.out.println("\tLine number:\t\t" + stackLine.getLineNumber());
+        System.out.println("\tIs Native Method:\t" + stackLine.isNativeMethod());
 
         // print stack trace lines of a specific package
         String packageName = "com.example.bank";
@@ -51,5 +48,8 @@ public class Main {
         for (StackTraceElement line : linesOfPackage) {
             System.out.println(line.toString());
         }
+
+        // print reconstructed original stack trace after parsing
+        System.out.println(stackTrace.getOriginalStackTrace());
     }
 }
