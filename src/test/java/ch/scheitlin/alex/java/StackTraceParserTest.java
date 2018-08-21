@@ -1,28 +1,38 @@
 package ch.scheitlin.alex.java;
 
+import static org.junit.Assert.fail;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
-
-import static org.junit.Assert.fail;
 
 public class StackTraceParserTest {
 
     @Test
     public void parse() {
-        // arrange
-        String originalStackTrace = null;
+        // assign variables with test data
+        String expectedStackTrace = getDummyStackTrace();
+
+        // execute methods to be tested
+        String actualStackTrace;
         try {
-            originalStackTrace = TestResourceReader.readResourceFile("dummyStackTrace.txt");
-        } catch (FileNotFoundException e) {
-            fail("Could not read test resource file!");
+            actualStackTrace = StackTraceParser.parse(expectedStackTrace).getOriginalStackTrace();
+        } catch (Exception e) {
+            fail("Could not parse the stack trace!");
+            return;
         }
 
-        // act
+        // assign result
+        Assert.assertEquals(expectedStackTrace, actualStackTrace);
+    }
+
+    private String getDummyStackTrace() {
         try {
-            StackTraceParser.parse(originalStackTrace);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return TestResourceReader.readResourceFile("dummyStackTrace.txt");
+        } catch (FileNotFoundException e) {
+            fail("Could not read test resource file!");
+            return null;
         }
     }
 }
