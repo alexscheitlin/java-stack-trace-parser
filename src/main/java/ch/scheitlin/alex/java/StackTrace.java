@@ -13,19 +13,43 @@ public class StackTrace {
     /**
      * The first line of the stack trace containing the error that happened.
      */
-    public String firstLine;
+    private String firstLine;
 
     /**
      * The stack trace lines of the stack trace indicating which pieces of code lead to the error mentioned at the first
      * line.
      */
-    public List<StackTraceElement> stackTraceLines;
+    private List<StackTraceElement> stackTraceLines;
 
     /**
      * Creates a new instance of {@code StackTrace}.
+     *
+     * @param firstLine       the first line of the stack trace containing the error that happened
+     * @param stackTraceLines the stack trace lines of the stack trace indicating which pieces of code lead to the error
+     *                        mentioned at the first line
      */
-    public StackTrace() {
-        this.stackTraceLines = new ArrayList<StackTraceElement>();
+    public StackTrace(String firstLine, List<StackTraceElement> stackTraceLines) {
+        this.firstLine = firstLine;
+        this.stackTraceLines = stackTraceLines;
+    }
+
+    /**
+     * Gets the first line of the stack trace.
+     *
+     * @return the first line of the stack trace containing the error that happened
+     */
+    public String getFirstLine() {
+        return this.firstLine;
+    }
+
+    /**
+     * Gets the stack trace lines of the stack trace.
+     *
+     * @return the stack trace lines of the stack trace indicating which pieces of code lead to the error mentioned at
+     * the first line
+     */
+    public List<StackTraceElement> getStackTraceLines() {
+        return this.stackTraceLines;
     }
 
     /**

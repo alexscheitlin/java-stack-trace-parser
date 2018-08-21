@@ -14,8 +14,8 @@ public class Main {
             System.out.println(stackTrace.getOriginalStackTrace());
 
             // print first line of stack trace and detailed information about some stack trace line
-            String firstLine = stackTrace.firstLine;
-            StackTraceElement stackLine = stackTrace.stackTraceLines.get(0);
+            String firstLine = stackTrace.getFirstLine();
+            StackTraceElement stackLine = stackTrace.getStackTraceLines().get(0);
 
             System.out.println();
             System.out.println("First line:\t" + firstLine);
