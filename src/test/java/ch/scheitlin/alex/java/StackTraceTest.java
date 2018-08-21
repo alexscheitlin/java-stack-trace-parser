@@ -1,15 +1,25 @@
 package ch.scheitlin.alex.java;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import java.io.FileNotFoundException;
+
+import static org.junit.Assert.fail;
 
 public class StackTraceTest {
 
     @Test
     public void getOriginalStackTrace() {
         // arrange
-        String originalStackTrace = DummyStackTrace.getDummyStackTrace();
+        String originalStackTrace = null;
+        try {
+            originalStackTrace = TestResourceReader.readResourceFile("dummyStackTrace.txt");
+        } catch (FileNotFoundException e) {
+            fail("Could not read test resource file!");
+        }
+
+
         StackTrace stackTrace = null;
         try {
             stackTrace = StackTraceParser.parse(originalStackTrace);
@@ -21,6 +31,6 @@ public class StackTraceTest {
         String retrievedStackTrace = stackTrace.getOriginalStackTrace();
 
         // assert
-        assertEquals(originalStackTrace, retrievedStackTrace);
+        Assert.assertEquals(originalStackTrace, retrievedStackTrace);
     }
 }
