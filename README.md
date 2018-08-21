@@ -4,8 +4,50 @@
 
 
 [![Build Status](https://travis-ci.org/alexscheitlin/java-stack-trace-parser.svg?branch=master)](https://travis-ci.org/alexscheitlin/java-stack-trace-parser)
+[![JitPack Version](https://jitpack.io/v/alexscheitlin/java-stack-trace-parser.svg)](https://jitpack.io/#alexscheitlin/java-stack-trace-parser/v1.0.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
+## How to Use
+
+### Add Dependency
+
+#### Maven
+
+- Add the JitPack repository to your `pom.xml` file:
+```
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+```
+
+- Add the dependency:
+```
+	<dependency>
+	    <groupId>com.github.alexscheitlin</groupId>
+	    <artifactId>java-stack-trace-parser</artifactId>
+	    <version>v1.0.0</version>
+	</dependency>
+```
+
+### Gradle
+
+- Add the JitPack repository to your `build.gradle` file:
+```
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+```
+
+- Add the dependency:
+```
+	dependencies {
+	        implementation 'com.github.alexscheitlin:java-stack-trace-parser:v1.0.0'
+	}
+```
 
 ## Code Example
 
