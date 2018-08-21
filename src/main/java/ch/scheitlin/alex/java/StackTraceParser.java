@@ -1,12 +1,19 @@
 package ch.scheitlin.alex.java;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Provides a function to parse a java stack trace represented as a {@code String} and map it to a {@code StackTrace}
+ * object.
+ */
 public class StackTraceParser {
     // A typical stack trace element looks like follows:
     // com.myPackage.myClass.myMethod(myClass.java:1)
     // component        example             allowed signs
+    // ---------------- ------------------- ------------------------------------------------------------
     // package name:    com.myPackage       alphabetical / numbers
     // class name:      myClass             alphabetical / numbers / $-sign for anonymous inner classes
     // method name:     myMethod            alphabetical / numbers / $-sign for lambda expressions
@@ -14,11 +21,11 @@ public class StackTraceParser {
     // line number:     1                   integer
 
     // The following lines show some example stack trace elements:
-    // org.junit.Assert.fail(Assert.java:86)                                             // typical stack trace element
-    // sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)                       // native method
-    // org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)                   // anonymous inner classes
-    // org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)                   // lambda expressions
-    // org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)     // numbers for package and class names
+    // org.junit.Assert.fail(Assert.java:86)                                            // typical stack trace element
+    // sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)                      // native method
+    // org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)                  // anonymous inner classes
+    // org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)                  // lambda expressions
+    // org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)    // numbers for package and class names
 
     // Using the predefined structure of a stack trace element and allowed signs for its components, the following
     // regular expression can be used to parse stack trace elements and it's components. Parentheses ('(', ')') are used
@@ -36,17 +43,18 @@ public class StackTraceParser {
     private static Pattern STACK_TRACE_LINE_PATTERN = Pattern.compile(STACK_TRACE_LINE_REGEX);
 
     /**
-     * Reads a stack trace String line by line and converts them into java.lang.StackTraceElement.
+     * Reads a java stack trace represented as a {@code String} and maps it to a {@code StackTrace} object with
+     * {@code java.lang.StackTraceElement}s.
      *
-     * @param stackTraceString the stack trace
-     * @return a StackTrace containing the first (error) line and a list of StackTraceElements
-     * @throws Exception if a stack trace line could not be parsed to a java.lang.StackTraceElement
+     * @param stackTraceString the java stack trace as a {@code String}
+     * @return a StackTrace containing the first (error) line and a list of {@code StackTraceElements}
+     * @throws Exception if a stack trace line could not be parsed to a {@code java.lang.StackTraceElement}
      */
     public static StackTrace parse(String stackTraceString) throws Exception {
         String[] lines = stackTraceString.split("\n");
 
-        StackTrace stackTrace = new StackTrace();
-        stackTrace.firstLine = lines[0];
+        String firstLine = lines[0];
+        List<StackTraceElement> stackTraceLines = new ArrayList<StackTraceElement>();
 
         for (int i = 1; i < lines.length; i++) {
             Matcher matcher = STACK_TRACE_LINE_PATTERN.matcher(lines[i]);
@@ -82,15 +90,15 @@ public class StackTraceParser {
 
                 // check whether the parsed stack trace element corresponds to the original one
                 if (!("\tat " + element.toString()).equals(lines[i])) {
-                    throw new Exception("ERROR: Stack strace line could not be parsed to StackTraceElement:\n" +
+                    throw new Exception("ERROR: Stack trace line could not be parsed to StackTraceElement:\n" +
                             "\tOriginal stack trace line:\t" + lines[i] + "\n" +
                             "\tParsed StackTraceElement:\t" + "\tat " + element.toString());
                 }
 
-                stackTrace.stackTraceLines.add(element);
+                stackTraceLines.add(element);
             }
         }
 
-        return stackTrace;
+        return new StackTrace(firstLine, stackTraceLines);
     }
 }
