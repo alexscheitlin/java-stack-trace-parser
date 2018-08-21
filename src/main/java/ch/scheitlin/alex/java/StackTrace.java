@@ -3,10 +3,27 @@ package ch.scheitlin.alex.java;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>Represents a java stack trace.</p>
+ *
+ * <p>The first line contains the error that happened and all following lines (stack trace
+ * elements) indicate which pieces of code lead to this error.</p>
+ */
 public class StackTrace {
+    /**
+     * The first line of the stack trace containing the error that happened.
+     */
     public String firstLine;
+
+    /**
+     * The stack trace lines of the stack trace indicating which pieces of code lead to the error mentioned at the first
+     * line.
+     */
     public List<StackTraceElement> stackTraceLines;
 
+    /**
+     * Creates a new instance of {@code StackTrace}.
+     */
     public StackTrace() {
         this.stackTraceLines = new ArrayList<StackTraceElement>();
     }
