@@ -4,7 +4,7 @@
 
 
 [![Build Status](https://travis-ci.org/alexscheitlin/java-stack-trace-parser.svg?branch=master)](https://travis-ci.org/alexscheitlin/java-stack-trace-parser)
-[![JitPack Version](https://jitpack.io/v/alexscheitlin/java-stack-trace-parser.svg)](https://jitpack.io/#alexscheitlin/java-stack-trace-parser/v1.0.0)
+[![JitPack Version](https://jitpack.io/v/alexscheitlin/java-stack-trace-parser.svg)](https://jitpack.io/#alexscheitlin/java-stack-trace-parser/v1.0.1)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## How to Use
@@ -28,7 +28,7 @@
 	<dependency>
 	    <groupId>com.github.alexscheitlin</groupId>
 	    <artifactId>java-stack-trace-parser</artifactId>
-	    <version>v1.0.0</version>
+	    <version>v1.0.1</version>
 	</dependency>
 ```
 
@@ -45,7 +45,7 @@
 - Add the dependency:
 ```
 	dependencies {
-	        implementation 'com.github.alexscheitlin:java-stack-trace-parser:v1.0.0'
+	        implementation 'com.github.alexscheitlin:java-stack-trace-parser:v1.0.1'
 	}
 ```
 
