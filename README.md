@@ -154,9 +154,7 @@ System.out.println(stackTrace.getOriginalStackTrace());
 
 ## Authors
 
-<!--TODO: List all authors -->
-
-- **Author** - *Initial work* - [alexscheitlin](https://github.com/alexscheitlin)
+- **Alex Scheitlin** - *Initial work* - [alexscheitlin](https://github.com/alexscheitlin)
 
 ## License
 
