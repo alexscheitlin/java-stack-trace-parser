@@ -32,7 +32,7 @@
 	</dependency>
 ```
 
-### Gradle
+#### Gradle
 
 - Add the JitPack repository to your `build.gradle` file:
 ```
@@ -49,7 +49,7 @@
 	}
 ```
 
-## Code Example
+### Code Example
 
 The `StackTraceParser` class parses a java stack trace (e.g. below) and maps it to a `StackTrace` object with `java.lang.StackTraceElement`s.
 
@@ -64,7 +64,7 @@ java.lang.AssertionError
 	...
 ```
 
-### Parse Stack Trace
+#### Parse Stack Trace
 
 First read some dummy stack trace:
 
@@ -89,7 +89,7 @@ try {
 }
 ```
 
-### Access Error
+#### Access Error
 
 To access the first stack trace line (the line indicating the caused error) use the following command:
 
@@ -97,7 +97,7 @@ To access the first stack trace line (the line indicating the caused error) use 
 String firstLine = stackTrace.getFirstLine();
 ```
 
-### Access Stack Trace Elements
+#### Access Stack Trace Elements
 
 To get detailed information about some stack trace line use the following command:
 
@@ -125,7 +125,7 @@ Stack Line:	org.junit.Assert.fail(Assert.java:86)
 ```
 _Original stack trace line: `at org.junit.Assert.fail(Assert.java:86)`_
 
-### Get Stack Trace Lines of Package
+#### Get Stack Trace Lines of Package
         
 To get stack trace lines of a specific package use the following command:
 
@@ -144,7 +144,7 @@ Expected output:
 com.example.bank.BankAccountTest.getNumber(BankAccountTest.java:21)
 ```
 
-### Reconstruct Stack Trace
+#### Reconstruct Stack Trace
 
 To reconstruct the original stack trace use the following command:
 
