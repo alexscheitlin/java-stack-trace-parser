@@ -14,6 +14,7 @@ public class StackTraceParser {
     // com.myPackage.myClass.myMethod(myClass.java:1)
     // component        example             allowed signs
     // ---------------- ------------------- ------------------------------------------------------------
+    // module name:     java.base           alphabetical / numbers
     // package name:    com.myPackage       alphabetical / numbers
     // class name:      myClass             alphabetical / numbers / $-sign for anonymous inner classes
     // method name:     myMethod            alphabetical / numbers / $-sign for lambda expressions
@@ -21,6 +22,7 @@ public class StackTraceParser {
     // line number:     1                   integer
 
     // The following lines show some example stack trace elements:
+    // java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)   // stack trace element with module name
     // org.junit.Assert.fail(Assert.java:86)                                            // typical stack trace element
     // sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)                      // native method
     // org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)                  // anonymous inner classes
@@ -32,14 +34,15 @@ public class StackTraceParser {
     // to extract the components and '?:' is used to group the signs but not creating capture groups. Additionally, the
     // typical stack trace output has a leading tab and 'at ' before the stack trace element.
 
-    // ^\tat ((?:(?:[\d\w]*\.)*[\d\w]*))\.([\d\w\$]*)\.([\d\w\$]*)\((?:(?:([\d\w]*\.java):(\d*))|([\d\w\s]*))\)$
-    // group 1: package name
-    // group 2: class name
-    // group 3: method name
-    // group 4: file name | null
-    // group 5: line number | null
-    // group 6: null | string
-    private static String STACK_TRACE_LINE_REGEX = "^\\tat ((?:(?:[\\d\\w]*\\.)*[\\d\\w]*))\\.([\\d\\w\\$]*)\\.([\\d\\w\\$]*)\\((?:(?:([\\d\\w]*\\.java):(\\d*))|([\\d\\w\\s]*))\\)$";
+    // ^\tat (?:((?:[\d\w]*\.)*[\d\w]*)\/)?((?:(?:[\d\w]*\.)*[\d\w]*))\.([\d\w\$]*)\.([\d\w\$]*)\((?:(?:([\d\w]*\.java):(\d*))|([\d\w\s]*))\)$
+    // group 1: module
+    // group 2: package
+    // group 3: class name
+    // group 4: method name
+    // group 5: file name | null
+    // group 6: line number | null
+    // group 7: null | string
+    private static String STACK_TRACE_LINE_REGEX = "^\\tat (?:((?:[\\d\\w]*\\.)*[\\d\\w]*)\\/)?((?:(?:[\\d\\w]*\\.)*[\\d\\w]*))\\.([\\d\\w\\$]*)\\.([\\d\\w\\$]*)\\((?:(?:([\\d\\w]*\\.java):(\\d*))|([\\d\\w\\s]*))\\)$";
     private static Pattern STACK_TRACE_LINE_PATTERN = Pattern.compile(STACK_TRACE_LINE_REGEX);
 
     /**
@@ -78,29 +81,35 @@ public class StackTraceParser {
             Matcher matcher = STACK_TRACE_LINE_PATTERN.matcher(lines[i]);
 
             if (matcher.matches()) {
-                String packageName = matcher.group(1);
-                String className = matcher.group(2);
-                String methodName = matcher.group(3);
+                // pass null if no module information is available
+                String moduleName = null;
+                if (matcher.group(1) != null) {
+                    moduleName = matcher.group(1);
+                }
+
+                String packageName = matcher.group(2);
+                String className = matcher.group(3);
+                String methodName = matcher.group(4);
 
                 // pass null if no file information is available
                 String fileName = null;
-                if (matcher.group(4) != null) {
-                    fileName = matcher.group(4);
+                if (matcher.group(5) != null) {
+                    fileName = matcher.group(5);
                 }
 
                 // pass -1 if no line number information is available
                 int lineNumber = -1;
-                if (matcher.group(5) != null) {
-                    lineNumber = Integer.valueOf(matcher.group(5));
+                if (matcher.group(6) != null) {
+                    lineNumber = Integer.valueOf(matcher.group(6));
                 }
 
                 // pass -2 as if the method containing the execution point is a native method
-                if (matcher.group(6) != null && matcher.group(6).equals("Native Method")) {
+                if (matcher.group(7) != null && matcher.group(7).equals("Native Method")) {
                     lineNumber = -2;
                 }
 
                 StackTraceElement element = new StackTraceElement(
-                        packageName + "." + className,
+                        (moduleName != null ? moduleName + "/" : "") + packageName + "." + className,
                         methodName,
                         fileName,
                         lineNumber
